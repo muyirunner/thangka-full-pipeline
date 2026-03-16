@@ -73,6 +73,14 @@ thangka-full-pipeline/
 └── README.md
 ```
 
+## 界面示意
+
+### 时空修复图鉴 / 全流程修复 Demo
+
+| 主界面 | 修复流程展示 | 图鉴点亮效果 |
+| :---: | :---: | :---: |
+| ![主界面](docs/screenshots/restoration-demo-home.png) | ![修复流程](docs/screenshots/restoration-demo-workflow.png) | ![图鉴点亮](docs/screenshots/restoration-demo-gallery.png) |
+
 ## 技术栈
 
 ### Frontend
