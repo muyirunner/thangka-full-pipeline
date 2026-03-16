@@ -1,149 +1,173 @@
 <div align="center">
   <img src="frontend/public/favicon.ico" alt="Logo" width="80" height="80">
   <h1 align="center">📜 时空修复图鉴 (Thangka Restoration Scroll)</h1>
-  <p align="center">
-    <b>唐卡数字化全流程体验系统（去噪、超分辨率、元素识别）</b>
-  </p>
+  <p align="center"><b>唐卡数字化全流程体验系统（去噪、超分辨率、元素识别）</b></p>
 </div>
 
 ---
 
-## 📸 界面预览 (Preview)
-<!-- 占位图：请在上传到 GitHub 后，在这里贴上系统界面的截图 -->
-| 核心数字展厅 | 修复全流程体验 | 后台管理中台 |
-| :---: | :---: | :---: |
-| ![数字展厅](https://placehold.co/600x400?text=Digital+Gallery) | ![工作台](https://placehold.co/600x400?text=Restoration+Workspace) | ![管理后台](https://placehold.co/600x400?text=Admin+Panel) |
+## 项目简介
 
----
+`thangka-full-pipeline` 是一个围绕 **唐卡数字化处理流程** 搭建的前后端一体化项目，尝试把图像检测、去噪、超分辨率增强与前端交互体验整合到同一个系统中。
 
-## 📖 项目简介 (Introduction)
-《时空修复图鉴》是一款深度结合**计算机视觉大模型**与**顶级 Web 前端交互艺术**的文化遗产修复体验型系统。
-本项目以西藏非物质文化遗产“唐卡”为核心，旨在让用户（普通访客、学生、数字艺术爱好者）通过第一人称的“修复师”视角，沉浸式体验从**【残卷鉴定】→【智能算法去噪】→【AI 细节超分还原】**的完整文物修复科研闭环。
+相比只展示单点算法能力，这个项目更关注：
 
-本项目不仅仅是一个软件系统，更是一件**数字交互艺术品**。通过空灵暗黑史诗级的 Awwwards 级 UI/UX 视觉重塑（Ethereal Dark Mode & Glassmorphism 2.0），我们致力于在冰冷的算法之外，传递文化遗产跨越时空的厚重与庄严。
+- 如何把图像处理链路组织成完整流程
+- 如何让用户直观看到“输入 → 处理 → 结果”的变化
+- 如何把文化数字化主题与系统交互体验结合起来
 
-### ✨ 核心体验特色 (Key Features)
-- **🪐 时空神坛 (Immersive Worktable)**：纯 CSS 渲染的悬浮金粉粒子（Ambient Dust）、带有物理弹性阻尼的法器控制面板（Spring Physics），以及极简琉璃材质（Glassmorphism 2.0）。
-- **🔍 三层修复法阵 (The Restoration Pipeline)**：
-  - **慧眼洞察 (Scanning)**：基于 **YOLOv8** 目标检测大模型的动态残损点病灶识别与锚点（Bounding Box）高亮。
-  - **净水拂尘 (Purifying)**：模拟洗涤降噪过程，平滑古卷噪点。
-  - **时光重塑 (Restoring)**：基于 **Real-ESRGAN** (Super-Resolution) 的古画细节超变态清晰还原。
-- **🎛️ 双擎驱动模式 (Dual-Engine Mode)**：
-  - **预设展厅模式 (Preset Mode)**：为 C 端无缝体验打造。后台一键自动处理低配画质/降噪画质，实现 0 等待、纯享丝滑动画的前台数字展厅效果。
-  - **极客全真模式 (Real Compute Mode)**：调用本地 GPU 显存，实时加载 YOLOv8 和 ESRGAN 检查点，对上传的真实损坏唐卡进行即刻物理推理。
-- **🛡️ 琉璃秘境管理中台 (Admin Panel)**：内置密码级（`123456`）后台中控。支持引擎健康度实时探测（RAM/CPU）、画廊 100% 动态 CRUD、全状态双向数据绑定及“一键降维打击（自动生成预设文件池）”。
+它既是一个图像处理系统原型，也是我在 **计算机视觉 + 前端交互 + 系统设计** 方向上的一次综合实践。
 
----
+## 核心能力
 
-## 🛠️ 技术架构 (Technology Stack)
-本项目采用前后端绝对分离（Headless）架构构建。
+### 1. 图像处理链路
+- **目标检测**：基于 YOLOv8，对图像中的关键元素进行识别与分析
+- **去噪处理**：提供图像降噪能力，用于模拟受损画作修复前后的处理过程
+- **超分辨率增强**：结合 Real-ESRGAN，对图像细节进行增强
 
-### 🎨 前端 (Frontend: The Digital Canvas)
-- **框架**: `Vue 3` (Composition API) + `Vite` 构建工具。
-- **状态管理**: `Pinia` (单向数据流动与状态持久化 `localStorage`)。
-- **视觉系统**: 纯 Vanilla CSS 驱动的 Awwwards 顶级视觉方案。
-  - `Cinzel` & `Noto Serif SC` 史诗/古典双语排版。
-  - 自定义 `cubic-bezier` 贝塞尔物理弹簧动画体系。
-- **路由方案**: `Vue Router 4` (平滑淡入无缝转场)。
+### 2. 前端展厅体验
+- 基于 Vue 3 + Vite 构建交互式展厅界面
+- 将图像处理过程组织为更易理解的分阶段体验
+- 支持预设内容展示与流程化浏览
 
-### 🧠 后端 (Backend: The AI Forge)
-- **服务器框架**: `FastAPI` + `Uvicorn` (高性能异步网络 IO)。
-- **AI 大模型矩阵**:
-  - `ultralytics` (YOLOv8 / 计算机视觉检测)
-  - `Pillow` (PIL / 基础图像重采样)
-  - `TK_CBM3D` 自研噪声去除推理引擎（已集成）
-  - `Real-ESRGAN` (Super-Resolution 超分辨率重建 / 已集成)
-- **数据持久层**: 轻量级无库架构，核心状态路由至 `config.json` 及文件系统哈希映射。
-- **系统探针**: `psutil` 轮询物理机载荷状态。
+### 3. 管理侧能力
+- 提供后台管理入口用于调节运行模式、管理画廊资源和上传素材
+- 支持将新增图片纳入展示流程
 
----
+> 说明：当前仓库中的管理侧能力主要用于本地演示与实验，不建议把示例配置直接用于公开生产环境。
 
-## 📂 目录结构 (Project Structure)
+## 当前仓库包含什么
+
+这个仓库当前主要包含两部分：
+
+### 前端（`frontend/`）
+- Vue 3
+- Vite
+- Vue Router
+- Pinia
+- 展厅页面与流程交互逻辑
+
+### 后端（`backend/`）
+- FastAPI 服务入口
+- YOLOv8 推理接入
+- 图像去噪模块
+- Real-ESRGAN 相关集成目录
+- 画廊预设生成脚本
+
+## 项目结构
+
 ```text
 thangka-full-pipeline/
 ├── backend/                  # FastAPI 后端核心
-│   ├── core/                 # AI 推理核心逻辑 (YOLO, TK_CBM3D, Real-ESRGAN)
-│   ├── models/               # 模型权重存放处
+│   ├── core/                 # AI 推理核心逻辑（YOLO / 去噪 / 超分）
+│   ├── models/               # 模型权重目录
 │   ├── app.py                # 主服务端入口
 │   ├── config.example.json   # 系统配置模板
-│   └── requirements.txt      # Python 依赖清单
+│   └── requirements.txt      # Python 依赖
 ├── frontend/                 # Vue3 前端展厅
-│   ├── public/               # 静态资源与画廊图库
-│   ├── src/                  # 前端源码 (组件、路由、状态管理)
-│   ├── package.json          # Node.js 依赖清单
-│   └── vite.config.js        # Vite 打包配置
-├── .gitignore                # Git 忽略配置
-├── LICENSE                   # 开源许可证
-└── README.md                 # 项目说明文档
+│   ├── public/gallery/       # 展示素材与预设图片
+│   ├── src/                  # 前端源码
+│   ├── package.json          # Node.js 依赖
+│   └── vite.config.js        # Vite 配置
+├── LICENSE
+└── README.md
 ```
 
+## 技术栈
+
+### Frontend
+- Vue 3
+- Vite
+- Vue Router
+- Pinia
+- Vanilla CSS
+
+### Backend
+- FastAPI
+- Uvicorn
+- Ultralytics / YOLOv8
+- Pillow
+- NumPy
+- psutil
+
+### AI / 图像处理
+- YOLOv8
+- TK_CBM3D
+- Real-ESRGAN
+
+## 运行方式
+
+### 环境要求
+- Node.js 16+
+- Python 3.9+
+- 如需更完整地运行超分或检测流程，建议具备可用的 CUDA / GPU 环境
+
+### 启动后端
+
+```bash
+cd backend
+pip install -r requirements.txt
+cp config.example.json config.json
+python app.py
+```
+
+默认情况下，后端服务运行在：
+
+- `http://127.0.0.1:8000`
+
+### 启动前端
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+默认情况下，前端运行在：
+
+- `http://localhost:5173`
+
+## 关于模型与素材
+
+仓库中已经保留了一部分用于展示和实验的素材，但完整运行某些能力时，仍可能依赖：
+
+- 本地模型权重
+- GPU 环境
+- 额外的图像处理依赖
+
+如果你打算把这个项目作为正式演示系统继续完善，建议后续进一步区分：
+
+- **演示素材**
+- **实验素材**
+- **模型权重**
+- **部署配置**
+
+这样项目结构会更清楚，也更适合长期维护。
+
+## 当前适合如何理解这个项目
+
+我更愿意把它看作一个：
+
+- **系统型作品原型**
+- **图像处理流程展示项目**
+- **文化数字化方向的综合实践**
+
+它的重点不是把某一个模块吹到最强，而是把多个模块组织成一个能被看懂、被体验、被继续打磨的整体系统。
+
+## 后续最值得继续完善的部分
+
+- 补充真实系统截图或演示 GIF
+- 明确前后端的联调方式
+- 补充模型权重获取说明
+- 梳理管理侧配置，避免示例配置被误用到生产环境
+- 收紧 README 中“已实现”和“规划中”的边界
+
+## Related Projects
+
+- [thangka-detection](https://github.com/muyirunner/thangka-detection)：唐卡元素智能识别项目
+- [muyirunner-site](https://github.com/muyirunner/muyirunner-site)：个人网站与在线作品集
+- [GitHub Profile](https://github.com/muyirunner/muyirunner)：GitHub 个人主页
+
 ---
 
-## 🚀 部署与运行指南 (Getting Started)
-
-### 📌 前置要求 (Prerequisites)
-- **Node.js** (>= 16.x)
-- **Python** (>= 3.9) 加 Conda 虚拟环境（推荐）
-- **GPU**（可选）：拥有 NVIDIA 独显可加速 YOLO 检测与超分辨率推理
-
-### ⚙️ 后端 AI 引擎启动 (Backend Setup)
-1. 进入后端目录：
-   ```bash
-   cd backend
-   ```
-2. 安装大模型及运行依赖：
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. 下载 Real-ESRGAN 预训练模型权重（约 330MB，仅首次需要）：
-   > 由于模型体积过大，未包含在 Git 仓库中，请手动下载并放入 `backend/models/esrgan_pretrained/` 目录。
-   - 📥 从 [Real-ESRGAN 官方 Release](https://github.com/xinntao/Real-ESRGAN/releases) 下载以下文件：
-     - `RealESRGAN_x4plus.pth`（必需）
-     - `RealESRGAN_x2plus.pth`（可选）
-   - 或从百度网盘一键下载全部权重：`（请替换为您的网盘链接）`
-4. 首次运行前，请复制配置文件模板：
-   ```bash
-   cp config.example.json config.json
-   ```
-5. 启动 FastAPI 核心枢纽：
-   ```bash
-   python app.py
-   # 服务将运行在 http://127.0.0.1:8000
-   ```
-*(注：按 `Ctrl + C` 可安全静默退出服务器)*
-
-### 🔮 前端数字展厅启动 (Frontend Setup)
-1. 进入前端目录：
-   ```bash
-   cd frontend
-   ```
-2. 安装 Vue 依赖：
-   ```bash
-   npm install
-   ```
-3. 启动 Vite 本地魔法服务器：
-   ```bash
-   npm run dev
-   # 展厅默认开启于 http://localhost:5173
-   ```
-
----
-
-## 🗝️ 后台入径指南 (Admin Operations)
-中台管理面板允许你随时调控这套庞大的数字资产系统。
-- **管理入口 url**: `http://localhost:5173/admin`
-- **最高权限密匙**: `123456`
-- **主要能力**:
-  - **模式切换**: 强制覆盖前端体验为“流媒体预设”或“GPU硬核演算”。
-  - **画廊治理**: 一键点亮/熄灭全站唐卡。
-  - **图鉴补完计划**: 点击 `[添加新画作]`，上传一张 4K 原图，后端会自动下渗（Downscale + Add Noise）为您洗出前台“未修复”与“降噪中”的虚拟物料，实现上货即用。
-
----
-
-## 📄 许可证 (License)
-本项目基于 [MIT License](./LICENSE) 开源。
-
----
-<p align="center">
-  <i>"在代码的微粒与像素的交响中，时间倒流，文明永存。"</i>
-</p>
+这个项目是我把算法模块、前端展示和系统体验揉在一起的一次尝试。对我来说，它的重要性不只是“做了多少功能”，而是它让我开始更认真地思考：如何把一个技术方向组织成一个真正像作品的系统。
