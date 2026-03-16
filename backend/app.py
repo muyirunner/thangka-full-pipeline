@@ -120,7 +120,7 @@ def load_config():
             return json.load(f)
     except Exception as e:
         print(f"Warning: Could not load config.json: {e}", flush=True)
-        return {"mode": "preset", "admin_password": "123456", "gallery": []}
+        return {"mode": "preset", "admin_password": "change-this-admin-password", "gallery": []}
 
 def save_config(config):
     """保存配置文件"""
@@ -135,9 +135,9 @@ from fastapi.responses import JSONResponse
 from typing import Optional
 
 def verify_admin(password: str = Header(None, alias="X-Admin-Password")):
-    """简单密码验证"""
+    """管理员密码验证（仅用于本地演示/实验环境）"""
     config = load_config()
-    if password != config.get("admin_password", "123456"):
+    if password != config.get("admin_password", "change-this-admin-password"):
         raise HTTPException(status_code=401, detail="密码错误")
 
 @app.get("/api/v1/admin/settings")
